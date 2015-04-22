@@ -1,5 +1,4 @@
 //Rob Evans
-//Last updated on 4/20/15
 package calc;
 
 //Calculator++ type design
@@ -49,7 +48,7 @@ public class Calc extends Application {
         buttons.add(b0);
        Button bDecimal = new Button(".");
         buttons.add(bDecimal);
-       Button bNegative = new Button("(-)");
+       Button bNegative = new Button("(+/-)");
         buttons.add(bNegative);
        Button bEquals = new Button("=");
         buttons.add(bEquals);
@@ -98,6 +97,7 @@ public class Calc extends Application {
         buttons.add(bExp);
        Button bClear = new Button("AC");
         buttons.add(bClear);
+        bClear.setStyle("-fx-font-weight: bold;");
        
         int count = 0;
         int x = 5;
@@ -187,12 +187,14 @@ public class Calc extends Application {
                 text.setText(tempStorage);
                 }
         });
+         
        b9.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                 tempStorage += "9";
                 text.setText(tempStorage);
                 }
         });
+       
        bDecimal.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                 tempStorage += ".";
@@ -227,6 +229,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bDivide.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -240,6 +243,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bMultiply.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -253,6 +257,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bSqRt.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -282,6 +287,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bSin.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -295,6 +301,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bLogTwo.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -309,6 +316,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bLogTen.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -323,6 +331,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bExp.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
             if(tempStorage != ""){
@@ -336,6 +345,7 @@ public class Calc extends Application {
                 text.setText("ERROR");
                 }
         });
+      
       bClear.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                 activeBuffer = 0;
@@ -345,6 +355,23 @@ public class Calc extends Application {
                 text.setText("0");
                 }
         });
+      
+      bNegative.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+            if(tempStorage != ""){
+                double tempNum = Double.parseDouble(tempStorage);
+                double x = tempNum * -1;
+                String tempString = Double.toString(x);
+                tempStorage = tempString;
+                text.setText(tempStorage);
+            }
+            else{
+                   text.setText("ERROR");     
+                        }       
+                }
+                
+        });
+      
        bEquals.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                 storage[activeBuffer]= Double.parseDouble(tempStorage);
