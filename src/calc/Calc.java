@@ -4,6 +4,8 @@ package calc;
 
 //Calculator++ type design
 
+import java.util.ArrayList;
+import java.util.ListIterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +20,8 @@ import javafx.stage.Stage;
 
 
 public class Calc extends Application {
+    ArrayList<Button> otherButtons = new ArrayList<>();
+    ArrayList<Button> buttons = new ArrayList<>();
     double [] storage = new double[10];
     int activeBuffer = 0;
     String tempStorage = "";
@@ -26,149 +30,96 @@ public class Calc extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Pane pane = new Pane();      
+        Pane pane = new Pane();
+        Scene scene = new Scene(pane, 215, 400);
+        pane.setStyle("-fx-background-color: black");
  /*----------------------- Calculator Screen -----------------------------*/
 
         
         TextField text = new TextField();
-        text.setLayoutX(3);
-        text.setLayoutY(50);
-        text.setPrefWidth(195);
+        text.setLayoutX(5);
+        text.setLayoutY(10);
+        text.setPrefWidth(215);
         text.setPrefHeight(50);
         text.setAlignment(Pos.BASELINE_RIGHT);
-        text.setText("HELLO");
+        //text.setText("0");
         
-        Button b0 = new Button("0");
-        Button b1 = new Button("1");
-        Button b2 = new Button("2");
-        Button b3 = new Button("3");
-        Button b4 = new Button("4");
-        Button b5 = new Button("5");
-        Button b6 = new Button("6");
-        Button b7 = new Button("7");
-        Button b8 = new Button("8");
-        Button b9 = new Button("9");
-        Button bDecimal = new Button(".");
-        Button bMultiply = new Button("X");
-        Button bDivide = new Button("/");
-        Button bPlus = new Button("+");
-        Button bMinus = new Button("-");
-        Button bEquals = new Button("=");
-        Button bSqRt = new Button("sqrt");
-        Button bCos = new Button("cos");
-        Button bSin = new Button("sin");
-        Button bLogTwo = new Button("log2");
-        Button bLogTen = new Button("log10");
-        Button bExp = new Button("^");
-        Button bClear = new Button("AC");
-        
-        bEquals.setLayoutX(150);
-        bEquals.setLayoutY(350);
-        bEquals.setPrefSize(50.0, 50.0);
+ /*-----------------------Buttons-----------------------------------------*/     
+       Button b0 = new Button("0");
+        buttons.add(b0);
+       Button bDecimal = new Button(".");
+        buttons.add(bDecimal);
+       Button bNegative = new Button("(-)");
+        buttons.add(bNegative);
+       Button bEquals = new Button("=");
+        buttons.add(bEquals);
         bEquals.setStyle("-fx-background-color: orange; ");
-        
-        
-        bPlus.setLayoutX(150);
-        bPlus.setLayoutY(300);
-        bPlus.setPrefSize(50.0, 50.0);
+       Button b1 = new Button("1");
+        buttons.add(b1);
+       Button b2 = new Button("2");
+        buttons.add(b2);
+       Button b3 = new Button("3");
+        buttons.add(b3); 
+       Button bPlus = new Button("+");
+        buttons.add(bPlus); 
         bPlus.setStyle("-fx-background-color: tomato; ");
-        
-        
-        bMinus.setLayoutX(150);
-        bMinus.setLayoutY(250);
-        bMinus.setPrefSize(50.0, 50.0);
+       Button b4 = new Button("4");
+        buttons.add(b4);
+       Button b5 = new Button("5");
+        buttons.add(b5);
+       Button b6 = new Button("6");
+        buttons.add(b6);
+       Button bMinus = new Button("-");
+        buttons.add(bMinus);
         bMinus.setStyle("-fx-background-color: tomato; ");
-        
-        
-        bDecimal.setLayoutX(100);
-        bDecimal.setLayoutY(350);
-        bDecimal.setPrefSize(50.0, 50.0);
-        
-        bMultiply.setLayoutX(150);
-        bMultiply.setLayoutY(200);
-        bMultiply.setPrefSize(50.0, 50.0);
+       Button b7 = new Button("7");
+        buttons.add(b7);
+       Button b8 = new Button("8");
+        buttons.add(b8);
+       Button b9 = new Button("9");
+        buttons.add(b9);
+       Button bMultiply = new Button("X");
+        buttons.add(bMultiply);
+       Button bSqRt = new Button("sqrt");
+        buttons.add(bSqRt);
         bMultiply.setStyle("-fx-background-color: tomato; ");
-        
-        
-        bSqRt.setLayoutX(0);
-        bSqRt.setLayoutY(150);
-        bSqRt.setPrefSize(50.0,50.0);
-        
-        bCos.setLayoutX(50);
-        bCos.setLayoutY(100);
-        bCos.setPrefSize(50.0,50.0);
-        
-        bSin.setLayoutX(0);
-        bSin.setLayoutY(100);
-        bSin.setPrefSize(50.0,50.0);
-        
-        bDivide.setLayoutX(150);
-        bDivide.setLayoutY(150);
-        bDivide.setPrefSize(50.0, 50.0);
+       Button bLogTwo = new Button("log2");
+        buttons.add(bLogTwo);
+       Button bLogTen = new Button("log10");
+        buttons.add(bLogTen);
+       Button bDivide = new Button("/");
+        buttons.add(bDivide);
         bDivide.setStyle("-fx-background-color: tomato; ");
+       Button bSin = new Button("sin");
+        buttons.add(bSin);
+       Button bCos = new Button("cos");
+        buttons.add(bCos);
+       Button bExp = new Button("^");
+        buttons.add(bExp);
+       Button bClear = new Button("AC");
+        buttons.add(bClear);
+       
+        int count = 0;
+        int x = 5;
+        int y = 350;
+        for(int i=0;i<24;i++){
+            if(count < 3){
+                modButtons(buttons.get(i),x,y);
+                x+=55;
+                count++;
+            }
+            else{
+                modButtons(buttons.get(i),x,y);
+                x =5;
+                y -= 55;
+                count=0;
+            }
+            
+        }
         
-        
-        bLogTwo.setLayoutX(50);
-        bLogTwo.setLayoutY(150);
-        bLogTwo.setPrefSize(50.0,50.0);
-        
-        
-        bLogTen.setLayoutX(100);
-        bLogTen.setLayoutY(150);
-        bLogTen.setPrefSize(50.0,50.0);
-        
-        bExp.setLayoutX(100);
-        bExp.setLayoutY(100);
-        bExp.setPrefSize(50.0,50.0);
-        
-        bClear.setLayoutX(150);
-        bClear.setLayoutY(100);
-        bClear.setPrefSize(50.0,50.0);
-        bClear.setStyle("-fx-font-weight: bold;");
-        
-        b0.setLayoutX(0);
-        b0.setLayoutY(350);                
-        b0.setPrefSize(100.0, 50.0);
-        
-        b1.setLayoutX(0);
-        b1.setLayoutY(300);
-        b1.setPrefSize(50.0, 50.0);
-        
-        b2.setLayoutX(50);
-        b2.setLayoutY(300);
-        b2.setPrefSize(50.0, 50.0);
-        
-        b3.setLayoutX(100);
-        b3.setLayoutY(300);
-        b3.setPrefSize(50.0, 50.0);
-        
-        b4.setLayoutX(0);
-        b4.setLayoutY(250);        
-        b4.setPrefSize(50.0, 50.0);
-        
-        b5.setLayoutX(50);
-        b5.setLayoutY(250);
-        b5.setPrefSize(50.0, 50.0);
-        
-        b6.setLayoutX(100);
-        b6.setLayoutY(250);
-        b6.setPrefSize(50.0, 50.0);
-        
-        b7.setLayoutX(0);
-        b7.setLayoutY(200);
-        b7.setPrefSize(50.0, 50.0);
-        
-        b8.setLayoutX(50);
-        b8.setLayoutY(200);
-        b8.setPrefSize(50.0, 50.0);
-        
-        b9.setLayoutX(100);
-        b9.setLayoutY(200);
-        b9.setPrefSize(50.0, 50.0);
-        
-        pane.getChildren().addAll(text,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,bPlus,bMinus,bEquals,bDivide,bMultiply,bDecimal, bSqRt, bCos,bSin,bExp,bLogTwo,bLogTen, bClear);
-        Scene scene = new Scene(pane, 200, 400);
+        pane.getChildren().addAll(text,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,bPlus,bMinus,bEquals,bDivide,bMultiply,bDecimal, bSqRt, bCos,bSin,bExp,bLogTwo,bLogTen, bClear,bNegative);
         primaryStage.setTitle("Calc");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
         
@@ -417,7 +368,7 @@ public class Calc extends Application {
                     text.setText(Double.toString(finalNumber));
                 }
                 else
-                    text.setText("ERROR");
+                    text.setText("CANNOT DIVIDE BY ZERO");
                 }
             else if(operator == "^"){
                 finalNumber = Math.pow(storage[activeBuffer-1], storage[activeBuffer]);
@@ -436,8 +387,11 @@ public class Calc extends Application {
     public static void modOperands(Button button){
         button.setStyle("-fx-background-color:#69D5E6");
     }
-    public static void modButtons(Button button){
-        button.setStyle("-fx-background-color:#484856");
+    public static void modButtons(Button button, int x, int y){
+        //button.setStyle("-fx-background-color:#484856");
+        button.setPrefSize(50.00,50.00);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
         
     }
 }
