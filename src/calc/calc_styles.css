@@ -1,0 +1,27 @@
+
+.button{
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 12.85px;
+    -fx-background-color:#484856;
+    -fx-text-fill: whitesmoke;
+}
+
+.window{
+    -fx-control-inner-background:#484856; 
+    -fx-font-family: 'Lato', sans-serif;
+    -fx-font-size: 20px;
+    -fx-border-color: #484856;
+}
+
+.operands{
+    -fx-background-color: tomato;
+    -fx-font-size: 18px;
+}
+#equals{
+    -fx-background-color: orange;
+    -fx-font-size: 20px;
+}
+#clear{
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}

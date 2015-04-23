@@ -1,7 +1,6 @@
 //Rob Evans
 package calc;
 
-//Calculator++ type design
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -31,6 +30,8 @@ public class Calc extends Application {
     public void start(Stage primaryStage) {
         Pane pane = new Pane();
         Scene scene = new Scene(pane, 215, 400);
+        scene.getStylesheets().add("http://fonts.googleapis.com/css?family=Lato");
+        scene.getStylesheets().add(Calc.class.getResource("calc_styles.css").toExternalForm());
         pane.setStyle("-fx-background-color: black");
  /*----------------------- Calculator Screen -----------------------------*/
 
@@ -41,18 +42,18 @@ public class Calc extends Application {
         text.setPrefWidth(215);
         text.setPrefHeight(50);
         text.setAlignment(Pos.BASELINE_RIGHT);
-        //text.setText("0");
+        text.getStyleClass().add("window");
         
- /*-----------------------Buttons-----------------------------------------*/     
+ /*-----------------------Buttons-----------------------------------------*/ 
+       Button bNegative = new Button("(+/-)");
+        buttons.add(bNegative);
        Button b0 = new Button("0");
         buttons.add(b0);
        Button bDecimal = new Button(".");
         buttons.add(bDecimal);
-       Button bNegative = new Button("(+/-)");
-        buttons.add(bNegative);
        Button bEquals = new Button("=");
         buttons.add(bEquals);
-        bEquals.setStyle("-fx-background-color: orange; ");
+        bEquals.setId("equals");
        Button b1 = new Button("1");
         buttons.add(b1);
        Button b2 = new Button("2");
@@ -61,7 +62,7 @@ public class Calc extends Application {
         buttons.add(b3); 
        Button bPlus = new Button("+");
         buttons.add(bPlus); 
-        bPlus.setStyle("-fx-background-color: tomato; ");
+        bPlus.getStyleClass().add("operands");
        Button b4 = new Button("4");
         buttons.add(b4);
        Button b5 = new Button("5");
@@ -70,25 +71,25 @@ public class Calc extends Application {
         buttons.add(b6);
        Button bMinus = new Button("-");
         buttons.add(bMinus);
-        bMinus.setStyle("-fx-background-color: tomato; ");
+        bMinus.getStyleClass().add("operands");
        Button b7 = new Button("7");
         buttons.add(b7);
        Button b8 = new Button("8");
         buttons.add(b8);
        Button b9 = new Button("9");
         buttons.add(b9);
-       Button bMultiply = new Button("X");
+       Button bMultiply = new Button("x");
         buttons.add(bMultiply);
+        bMultiply.getStyleClass().add("operands");
        Button bSqRt = new Button("sqrt");
         buttons.add(bSqRt);
-        bMultiply.setStyle("-fx-background-color: tomato; ");
        Button bLogTwo = new Button("log2");
         buttons.add(bLogTwo);
        Button bLogTen = new Button("log10");
         buttons.add(bLogTen);
        Button bDivide = new Button("/");
         buttons.add(bDivide);
-        bDivide.setStyle("-fx-background-color: tomato; ");
+        bDivide.getStyleClass().add("operands");
        Button bSin = new Button("sin");
         buttons.add(bSin);
        Button bCos = new Button("cos");
@@ -97,7 +98,7 @@ public class Calc extends Application {
         buttons.add(bExp);
        Button bClear = new Button("AC");
         buttons.add(bClear);
-        bClear.setStyle("-fx-font-weight: bold;");
+        bClear.setId("clear");
        
         int count = 0;
         int x = 5;
@@ -411,11 +412,7 @@ public class Calc extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    public static void modOperands(Button button){
-        button.setStyle("-fx-background-color:#69D5E6");
-    }
     public static void modButtons(Button button, int x, int y){
-        //button.setStyle("-fx-background-color:#484856");
         button.setPrefSize(50.00,50.00);
         button.setLayoutX(x);
         button.setLayoutY(y);
