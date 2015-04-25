@@ -18,9 +18,8 @@ import javafx.stage.Stage;
 
 
 public class Calc extends Application {
-    ArrayList<Button> otherButtons = new ArrayList<>();
-    ArrayList<Button> buttons = new ArrayList<>();
-    double [] storage = new double[10];
+    static ArrayList<Button> buttons = new ArrayList<>();
+    double [] storage = new double[100];
     int activeBuffer = 0;
     String tempStorage = "";
     String operator = "";
@@ -100,24 +99,8 @@ public class Calc extends Application {
         buttons.add(bClear);
         bClear.setId("clear");
        
-        int count = 0;
-        int x = 5;
-        int y = 350;
-        for(int i=0;i<24;i++){
-            if(count < 3){
-                modButtons(buttons.get(i),x,y);
-                x+=55;
-                count++;
-            }
-            else{
-                modButtons(buttons.get(i),x,y);
-                x =5;
-                y -= 55;
-                count=0;
-            }
-            
-        }
         
+        placeButtons(buttons); //placing buttons on the calculator
         pane.getChildren().addAll(text,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,bPlus,bMinus,bEquals,bDivide,bMultiply,bDecimal, bSqRt, bCos,bSin,bExp,bLogTwo,bLogTen, bClear,bNegative);
         primaryStage.setTitle("Calc");
         primaryStage.setResizable(false);
@@ -198,9 +181,13 @@ public class Calc extends Application {
        
        bDecimal.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                tempStorage += ".";
-                text.setText(tempStorage);
+                if(find(tempStorage,'.') != true){
+                    tempStorage += ".";
+                    text.setText(tempStorage);
                 }
+            }
+             
+                 
         });
        
         bPlus.setOnAction(new EventHandler<ActionEvent>() {
@@ -212,9 +199,13 @@ public class Calc extends Application {
                 operator = "+";
                 text.setText("+");
             }
+            else if(operator == "+"){
+                return;
+            }
             else
                 text.setText("ERROR");
                 }
+                
         });
       
       bMinus.setOnAction(new EventHandler<ActionEvent>() {
@@ -225,6 +216,9 @@ public class Calc extends Application {
                 activeBuffer++;
                 operator = "-"; 
                 text.setText("-");
+            }
+            else if(operator == "-"){
+                return;
             }
             else
                 text.setText("ERROR");
@@ -240,8 +234,11 @@ public class Calc extends Application {
                 operator = "/"; 
                 text.setText("/");
                 }
+            else if(operator == "/"){
+                return;
+            }
             else
-                text.setText("ERROR");
+             text.setText("ERROR");
                 }
         });
       
@@ -254,6 +251,9 @@ public class Calc extends Application {
                 operator = "x"; 
                 text.setText("x");
             }
+            else if(operator == "x"){
+                return;
+            }
             else
                 text.setText("ERROR");
                 }
@@ -264,9 +264,8 @@ public class Calc extends Application {
             if(tempStorage != ""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 double square = Math.sqrt(storage[activeBuffer]);
-                tempStorage = "";
                 text.setText(Double.toString(square));
-                tempStorage = Double.toString(finalNumber);
+                tempStorage = Double.toString(square);
                 activeBuffer++;
             }
             else
@@ -279,9 +278,8 @@ public class Calc extends Application {
             if(tempStorage != ""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 double cos = Math.cos(Math.toRadians(storage[activeBuffer]));
-                tempStorage = "";
                 text.setText(Double.toString(cos));
-                tempStorage = Double.toString(finalNumber);
+                tempStorage = Double.toString(cos);
                 activeBuffer++;
                 }
             else
@@ -291,13 +289,13 @@ public class Calc extends Application {
       
       bSin.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
+            if(tempStorage != "" && operator ==""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 double sin = Math.sin(Math.toRadians(storage[activeBuffer]));
-                tempStorage = "";
                 text.setText(Double.toString(sin));
-                tempStorage = Double.toString(finalNumber);
-                activeBuffer++;}
+                tempStorage = Double.toString(sin);
+                activeBuffer++;
+            }
             else
                 text.setText("ERROR");
                 }
@@ -305,12 +303,11 @@ public class Calc extends Application {
       
       bLogTwo.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
+            if(tempStorage != "" && operator==""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 double logTwo = Math.log(storage[activeBuffer])/Math.log(2);
-                tempStorage = "";
                 text.setText(Double.toString(logTwo));
-                tempStorage = Double.toString(finalNumber);
+                tempStorage = Double.toString(logTwo);
                 activeBuffer++;
                 }
             else
@@ -320,12 +317,11 @@ public class Calc extends Application {
       
       bLogTen.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
+            if(tempStorage != "" && operator ==""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 double logTen = Math.log10(storage[activeBuffer]);
-                tempStorage = "";
                 text.setText(Double.toString(logTen));
-                tempStorage = Double.toString(finalNumber);
+                tempStorage = Double.toString(logTen);
                 activeBuffer++;
                 }
             else
@@ -335,7 +331,7 @@ public class Calc extends Application {
       
       bExp.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
+            if(tempStorage != "" && operator==""){
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 tempStorage = "";
                 activeBuffer++;
@@ -404,6 +400,7 @@ public class Calc extends Application {
                 }
                 tempStorage = Double.toString(finalNumber);
                 activeBuffer++;
+                operator="";
                 }
         });
                
@@ -418,4 +415,34 @@ public class Calc extends Application {
         button.setLayoutY(y);
         
     }
+    public static void placeButtons(ArrayList<Button> list){
+        int count = 0;
+        int x = 5;
+        int y = 350;
+        for(int i=0;i<24;i++){
+            if(count < 3){
+                modButtons(buttons.get(i),x,y);
+                x+=55;
+                count++;
+            }
+            else{
+                modButtons(buttons.get(i),x,y);
+                x =5;
+                y -= 55;
+                count=0;
+            }
+            
+        }
+    }
+    
+    public static boolean find(String list, char a){
+        boolean isDec = false;
+        for(int i = 0; i<list.length();i++){
+            if(list.charAt(i) == a){
+                isDec = true;
+            } 
+    }
+        return isDec;
+    
+}
 }
