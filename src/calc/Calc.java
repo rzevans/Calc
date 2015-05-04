@@ -3,17 +3,13 @@ package calc;
 
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
@@ -39,7 +35,7 @@ public class Calc extends Application {
         text.setLayoutX(5);
         text.setLayoutY(10);
         text.setPrefWidth(215);
-        text.setPrefHeight(50);
+        text.setPrefHeight(45);
         text.setAlignment(Pos.BASELINE_RIGHT);
         text.getStyleClass().add("window");
         
@@ -108,91 +104,67 @@ public class Calc extends Application {
         primaryStage.show();
         
  /*--------------------Events---------------------------------*/
-        b0.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage+= 0;
-                text.setText(tempStorage);
-                }
+        b0.setOnAction((ActionEvent e) -> {
+            tempStorage+= 0;
+            text.setText(tempStorage);
         });
         
-         b1.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-               tempStorage += "1";
-               text.setText(tempStorage);
-                }
+         b1.setOnAction((ActionEvent e) -> {
+             tempStorage += "1";
+             text.setText(tempStorage);
         });
        
-        b2.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "2";
-                text.setText(tempStorage);
-                }
+        b2.setOnAction((ActionEvent e) -> {
+            tempStorage += "2";
+            text.setText(tempStorage);
         });
         
          
-          b3.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "3";
-                text.setText(tempStorage);
-                }
+          b3.setOnAction((ActionEvent e) -> {
+              tempStorage += "3";
+              text.setText(tempStorage);
         });
           
-          b4.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "4";
-                text.setText(tempStorage);
-                }
+          b4.setOnAction((ActionEvent e) -> {
+              tempStorage += "4";
+              text.setText(tempStorage);
         });
            
-          b5.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "5";
-                text.setText(tempStorage);
-                }
+          b5.setOnAction((ActionEvent e) -> {
+              tempStorage += "5";
+              text.setText(tempStorage);
         });
             
-           b6.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "6";
-                text.setText(tempStorage);
-                }
+           b6.setOnAction((ActionEvent e) -> {
+               tempStorage += "6";
+               text.setText(tempStorage);
         });
              
-          b7.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "7";
-                text.setText(tempStorage);
-                }
+          b7.setOnAction((ActionEvent e) -> {
+              tempStorage += "7";
+              text.setText(tempStorage);
         });
               
-         b8.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "8";
-                text.setText(tempStorage);
-                }
+         b8.setOnAction((ActionEvent e) -> {
+             tempStorage += "8";
+             text.setText(tempStorage);
         });
          
-       b9.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                tempStorage += "9";
-                text.setText(tempStorage);
-                }
+       b9.setOnAction((ActionEvent e) -> {
+           tempStorage += "9";
+           text.setText(tempStorage);
         });
        
-       bDecimal.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                if(find(tempStorage,'.') != true){
-                    tempStorage += ".";
-                    text.setText(tempStorage);
-                }
-            }
-             
-                 
+       bDecimal.setOnAction((ActionEvent e) -> {
+           if(find(tempStorage,'.') != true){
+               tempStorage += ".";
+               text.setText(tempStorage);
+           }
         });
        
-        bPlus.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){    
+        
+        bPlus.setOnAction((ActionEvent e) -> {
+            if(tempStorage != ""&& operator==""){    
                 storage[activeBuffer] = Double.parseDouble(tempStorage);
                 tempStorage = "";
                 activeBuffer++;
@@ -204,204 +176,189 @@ public class Calc extends Application {
             }
             else
                 text.setText("ERROR");
-                }
-                
         });
       
-      bMinus.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                tempStorage = "";
-                activeBuffer++;
-                operator = "-"; 
-                text.setText("-");
-            }
-            else if(operator == "-"){
-                return;
-            }
-            else
-                text.setText("ERROR");
-                }
+      bMinus.setOnAction((ActionEvent e) -> {
+          if(tempStorage != ""&& operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              tempStorage = "";
+              activeBuffer++;
+              operator = "-";
+              text.setText("-");
+          }
+          else if(operator == "-"){
+              return;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bDivide.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                tempStorage = "";
-                activeBuffer++;
-                operator = "/"; 
-                text.setText("/");
-                }
-            else if(operator == "/"){
-                return;
-            }
-            else
-             text.setText("ERROR");
-                }
+      bDivide.setOnAction((ActionEvent e) -> {
+          if(tempStorage != ""&& operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              tempStorage = "";
+              activeBuffer++;
+              operator = "/";
+              text.setText("/");
+          }
+          else if(operator == "/"){
+              return;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bMultiply.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                tempStorage = "";
-                activeBuffer++;
-                operator = "x"; 
-                text.setText("x");
-            }
-            else if(operator == "x"){
-                return;
-            }
-            else
-                text.setText("ERROR");
-                }
+      bMultiply.setOnAction((ActionEvent e) -> {
+          if(tempStorage != ""&& operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              tempStorage = "";
+              activeBuffer++;
+              operator = "x";
+              text.setText("x");
+          }
+          else if(operator == "x"){
+              return;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bSqRt.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                double square = Math.sqrt(storage[activeBuffer]);
-                text.setText(Double.toString(square));
-                tempStorage = Double.toString(square);
-                activeBuffer++;
-            }
-            else
-                text.setText("ERROR");
-                }
+      bSqRt.setOnAction((ActionEvent e) -> {
+          if(tempStorage != ""&& operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              double square = Math.sqrt(storage[activeBuffer]);
+              text.setText(Double.toString(square));
+              tempStorage = Double.toString(square);
+              activeBuffer++;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bCos.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                double cos = Math.cos(Math.toRadians(storage[activeBuffer]));
-                text.setText(Double.toString(cos));
-                tempStorage = Double.toString(cos);
-                activeBuffer++;
-                }
-            else
-                text.setText("ERROR");
-                }
+      
+      
+      bCos.setOnAction((ActionEvent e) -> {
+          if(tempStorage != "" && operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              double cos = Math.cos(Math.toRadians(storage[activeBuffer]));
+              //System.out.println(cos);
+              if(Math.abs(cos) < 0.00000000001)
+              {
+                  cos = 0.0;
+              }
+              System.out.println(cos);
+              text.setText(Double.toString(cos));
+              tempStorage = Double.toString(cos);
+              activeBuffer++;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bSin.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != "" && operator ==""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                double sin = Math.sin(Math.toRadians(storage[activeBuffer]));
-                text.setText(Double.toString(sin));
-                tempStorage = Double.toString(sin);
-                activeBuffer++;
-            }
-            else
-                text.setText("ERROR");
-                }
+      bSin.setOnAction((ActionEvent e) -> {
+          if(tempStorage != "" && operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              double sin = Math.sin(Math.toRadians(storage[activeBuffer]));
+              if(Math.abs(sin) < 0.00000001)
+              {
+                  sin = 0.0;
+              }
+              text.setText(Double.toString(sin));
+              tempStorage = Double.toString(sin);
+              activeBuffer++;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bLogTwo.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != "" && operator==""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                double logTwo = Math.log(storage[activeBuffer])/Math.log(2);
-                text.setText(Double.toString(logTwo));
-                tempStorage = Double.toString(logTwo);
-                activeBuffer++;
-                }
-            else
-                text.setText("ERROR");
-                }
+      bLogTwo.setOnAction((ActionEvent e) -> {
+          if(tempStorage != "" && operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              double logTwo = Math.log(storage[activeBuffer])/Math.log(2);
+              text.setText(Double.toString(logTwo));
+              tempStorage = Double.toString(logTwo);
+              activeBuffer++;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bLogTen.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != "" && operator ==""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                double logTen = Math.log10(storage[activeBuffer]);
-                text.setText(Double.toString(logTen));
-                tempStorage = Double.toString(logTen);
-                activeBuffer++;
-                }
-            else
-                text.setText("ERROR");
-                }
+      bLogTen.setOnAction((ActionEvent e) -> {
+          if(tempStorage != "" && operator ==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              double logTen = Math.log10(storage[activeBuffer]);
+              text.setText(Double.toString(logTen));
+              tempStorage = Double.toString(logTen);
+              activeBuffer++;
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bExp.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != "" && operator==""){
-                storage[activeBuffer] = Double.parseDouble(tempStorage);
-                tempStorage = "";
-                activeBuffer++;
-                operator = "^"; 
-                text.setText("^");
-                }
-            else
-                text.setText("ERROR");
-                }
+      bExp.setOnAction((ActionEvent e) -> {
+          if(tempStorage != "" && operator==""){
+              storage[activeBuffer] = Double.parseDouble(tempStorage);
+              tempStorage = "";
+              activeBuffer++;
+              operator = "^";
+              text.setText("^");
+          }
+          else
+              text.setText("ERROR");
         });
       
-      bClear.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                activeBuffer = 0;
-                tempStorage = "";
-                operator = "";
-                finalNumber = 0;
-                text.setText("0");
-                }
+      bClear.setOnAction((ActionEvent e) -> {
+          activeBuffer = 0;
+          tempStorage = "";
+          operator = "";
+          finalNumber = 0;
+          text.setText("0");
         });
       
-      bNegative.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-            if(tempStorage != ""){
-                double tempNum = Double.parseDouble(tempStorage);
-                double x = tempNum * -1;
-                String tempString = Double.toString(x);
-                tempStorage = tempString;
-                text.setText(tempStorage);
-            }
-            else{
-                   text.setText("ERROR");     
-                        }       
-                }
-                
+      bNegative.setOnAction((ActionEvent e) -> {
+          if(tempStorage != ""){
+              double tempNum = Double.parseDouble(tempStorage);
+              double x = tempNum * -1;
+              String tempString = Double.toString(x);
+              tempStorage = tempString;
+              text.setText(tempStorage);
+          }
+          else{
+              text.setText("ERROR");
+          }
         });
       
-       bEquals.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                storage[activeBuffer]= Double.parseDouble(tempStorage);
-                tempStorage ="";
-          
-            if(operator == "+"){
-                finalNumber = storage[activeBuffer-1]+storage[activeBuffer];
-                    text.setText(Double.toString(finalNumber));
-                }
-            else if(operator == "-"){
-                finalNumber = storage[activeBuffer-1] - storage[activeBuffer];
-                    text.setText(Double.toString(finalNumber));
-                }
-            else if(operator == "x"){
-                finalNumber = storage[activeBuffer-1] * storage[activeBuffer];
-                text.setText(Double.toString(finalNumber));
-                }
-            else if(operator == "/"){
-                if(storage[activeBuffer] != 0){
-                    finalNumber = storage[activeBuffer-1] / storage[activeBuffer];
-                    text.setText(Double.toString(finalNumber));
-                }
-                else
-                    text.setText("CANNOT DIVIDE BY ZERO");
-                }
-            else if(operator == "^"){
-                finalNumber = Math.pow(storage[activeBuffer-1], storage[activeBuffer]);
-                text.setText(Double.toString(finalNumber));
-                }
-                tempStorage = Double.toString(finalNumber);
-                activeBuffer++;
-                operator="";
-                }
+       bEquals.setOnAction((ActionEvent e) -> {
+           storage[activeBuffer]= Double.parseDouble(tempStorage);
+           tempStorage ="";
+           
+           if(operator == "+"){
+               finalNumber = storage[activeBuffer-1]+storage[activeBuffer];
+               text.setText(Double.toString(finalNumber));
+           }
+           else if(operator == "-"){
+               finalNumber = storage[activeBuffer-1] - storage[activeBuffer];
+               text.setText(Double.toString(finalNumber));
+           }
+           else if(operator == "x"){
+               finalNumber = storage[activeBuffer-1] * storage[activeBuffer];
+               text.setText(Double.toString(finalNumber));
+           }
+           else if(operator == "/"){
+               if(storage[activeBuffer] != 0){
+                   finalNumber = storage[activeBuffer-1] / storage[activeBuffer];
+                   text.setText(Double.toString(finalNumber));
+               }
+               else
+                   text.setText("CANNOT DIVIDE BY ZERO");
+           }
+           else if(operator == "^"){
+               finalNumber = Math.pow(storage[activeBuffer-1], storage[activeBuffer]);
+               text.setText(Double.toString(finalNumber));
+           }
+           tempStorage = Double.toString(finalNumber);
+           activeBuffer++;
+           operator="";
         });
                
     }
